@@ -16,14 +16,6 @@ lerna-debug.log*
 # misc
 .DS_Store
 
-# packages
-/packages/*/build
-/packages/*/coverage
-/packages/*/dist
-/packages/*/.nyc_output
-/packages/*/cypress/videos/
-/packages/*/cypress/screenshots/
-
 # typescript
 *.tsbuildinfo
 
@@ -33,3 +25,11 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# workspaces
+build
+coverage
+dist
+.nyc_output
+cypress/videos
+cypress/screenshots
