@@ -1,4 +1,11 @@
 export interface Pokemon {
+  id: number;
   name: string;
-  url: string;
+  sprites: {
+    other: {
+      dream_world: {
+        front_default: string;
+      };
+    };
+  };
 }
