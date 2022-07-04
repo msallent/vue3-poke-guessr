@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import PokemonCard from '@/components/PokemonCard.vue';
 import { usePokemon } from '@/hooks/usePokemon';
+
 const { pokemon, isLoading, error } = usePokemon();
 </script>
 
@@ -10,9 +12,7 @@ const { pokemon, isLoading, error } = usePokemon();
 
   <div v-if="error">{{ error.message }}</div>
 
-  <ul v-if="!isLoading && !error">
-    <li v-for="(_pokemon, index) in pokemon" :key="_pokemon.name">
-      {{ `${_pokemon.name} (id: ${index + 1})` }}
-    </li>
-  </ul>
+  <div v-if="pokemon" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+    <PokemonCard />
+  </div>
 </template>
