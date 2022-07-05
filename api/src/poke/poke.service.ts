@@ -8,14 +8,10 @@ export class PokeService {
   constructor(private readonly httpService: HttpService) {}
 
   findAll() {
-    return this.httpService
-      .get<PokemonList>('https://pokeapi.co/api/v2/pokemon')
-      .pipe(map(({ data }) => data));
+    return this.httpService.get<PokemonList>('/pokemon').pipe(map(({ data }) => data));
   }
 
   findOne(id: number) {
-    return this.httpService
-      .get<Pokemon>(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      .pipe(map(({ data }) => data));
+    return this.httpService.get<Pokemon>(`/pokemon/${id}`).pipe(map(({ data }) => data));
   }
 }
