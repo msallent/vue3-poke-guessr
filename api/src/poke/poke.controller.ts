@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import { PokeService } from './poke.service';
 import { MAX_CARD_OPTIONS, MAX_ID_SECOND_GEN } from './constants';
@@ -33,10 +33,5 @@ export class PokeController {
         image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonId}.svg`,
       };
     });
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.pokeService.findOne(id);
   }
 }
