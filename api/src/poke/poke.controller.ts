@@ -9,8 +9,8 @@ export class PokeController {
   constructor(private readonly pokeService: PokeService) {}
 
   @Get()
-  findAll(@Query() query: { limit: number; offset: number }) {
-    return this.pokeService.findAll(query.limit, query.offset);
+  findAll(@Query() query?: { limit?: number; offset?: number }) {
+    return this.pokeService.findAll(query?.limit, query?.offset);
   }
 
   @Get('quiz')
