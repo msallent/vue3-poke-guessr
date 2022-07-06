@@ -8,13 +8,12 @@ import SkeletonButton from '@/components/SkeletonButton.vue';
 const { pokemonList, pokemon } = usePokemon();
 
 const sprite = ref('');
+const showPokemon = ref(false);
+const selectedAnswer = ref('');
 
-const onClick = (pokemonId: number) => {
-  if (pokemonId === pokemon.value?.id) {
-    console.log('CORRECT!');
-  } else {
-    console.log('Try again.');
-  }
+const onClick = (pokemonId: string) => {
+  selectedAnswer.value = pokemonId;
+  showPokemon.value = true;
 };
 
 watch(pokemon, () => {
@@ -32,12 +31,20 @@ watch(pokemon, () => {
   >
     <div
       v-html="sprite"
-      class="flex justify-center items-center text-black h-80 [&>svg]:w-full [&>svg]:h-full"
       aria-hidden="true"
+      class="flex justify-center items-center h-80 [&>svg]:w-full [&>svg]:h-full"
+      :class="{ '[&>svg>g>path]:fill-black': !showPokemon }"
     ></div>
     <ul v-if="pokemonList.length > 0 && sprite !== ''" class="space-y-4">
-      <li v-for="pokemon in pokemonList" :key="pokemon.id">
-        <CardButton @click="() => onClick(pokemon.id)">{{ pokemon.name }}</CardButton>
+      <li v-for="_pokemon in pokemonList" :key="_pokemon.id">
+        <CardButton
+          @click="() => onClick(_pokemon.id)"
+          :id="_pokemon.id"
+          :is-chosen="_pokemon.chosen"
+          :selected-answer="selectedAnswer"
+        >
+          {{ _pokemon.name }}
+        </CardButton>
       </li>
     </ul>
     <ul v-else class="space-y-4">
