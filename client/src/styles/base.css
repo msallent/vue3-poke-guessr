@@ -5,7 +5,3 @@
 #app {
   @apply min-h-screen bg-zinc-900 text-white;
 }
-
-#app path {
-  @apply fill-current;
-}
