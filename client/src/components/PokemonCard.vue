@@ -1,14 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import CardButton from './CardButton.vue';
+import axios from 'axios';
+import type { Pokemon } from '@/types/Pokemon';
+import CardButton from '@/components/CardButton.vue';
+
+const props = defineProps<{
+  pokemon: Pokemon;
+  options: Array<Pokemon>;
+}>();
 
 const sprite = ref('');
+axios.get(props.pokemon.image).then(({ data }) => {
+  sprite.value = data;
+});
 
-fetch(
-  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/124.svg'
-).then((res) => res.text().then((res) => (sprite.value = res)));
-
-const onClick = () => console.log('click');
+const onClick = (pokemonId: number) => {
+  if (pokemonId === props.pokemon.id) {
+    console.log('CORRECT!');
+  } else {
+    console.log('Try again.');
+  }
+};
 </script>
 
 <template>
@@ -17,21 +29,12 @@ const onClick = () => console.log('click');
   >
     <div
       v-html="sprite"
-      class="flex justify-center items-center text-black"
+      class="flex justify-center items-center text-black h-80 [&>svg]:w-full [&>svg]:h-full"
       aria-hidden="true"
     ></div>
     <ul class="space-y-4">
-      <li>
-        <CardButton @click="onClick">Pokemon 1</CardButton>
-      </li>
-      <li>
-        <CardButton @click="onClick">Pokemon 2</CardButton>
-      </li>
-      <li>
-        <CardButton @click="onClick">Pokemon 3</CardButton>
-      </li>
-      <li>
-        <CardButton @click="onClick">Pokemon 4</CardButton>
+      <li v-for="pokemon in options" :key="pokemon.id">
+        <CardButton @click="() => onClick(pokemon.id)">{{ pokemon.name }}</CardButton>
       </li>
     </ul>
   </div>
