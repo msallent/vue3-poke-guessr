@@ -1,3 +1,5 @@
+export type Generation = 'i' | 'ii' | 'iii' | 'all';
+
 export interface PokemonList {
   count: number;
   next: string;
