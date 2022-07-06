@@ -2,11 +2,11 @@ import axios, { AxiosError } from 'axios';
 import { ref, type Ref } from 'vue';
 import type { Pokemon } from '@/types/Pokemon';
 
-const MAX_POKEMON = 905;
-const API_ENDPOINT = 'https://pokeapi.co/api/v2/pokemon';
+const API_ENDPOINT = 'http://localhost:8080';
 
 export const usePokemon = () => {
   const error: Ref<AxiosError | null> = ref(null);
+  const pokemonList: Ref<Array<Pokemon>> = ref([]);
   const pokemon: Ref<Pokemon | null> = ref(null);
   const isLoading = ref(false);
 
@@ -14,9 +14,11 @@ export const usePokemon = () => {
     isLoading.value = true;
 
     try {
-      const pokemonId = Math.round(Math.random() * MAX_POKEMON);
-      const { data } = await axios.get<Pokemon>(`${API_ENDPOINT}/${pokemonId}`);
-      pokemon.value = data;
+      const { data } = await axios.get<Array<Pokemon>>(`${API_ENDPOINT}/quiz`);
+
+      const randomIndex = Math.floor(Math.random() * data.length);
+      pokemon.value = data[randomIndex];
+      pokemonList.value = data;
     } catch (err) {
       error.value = err as AxiosError;
     } finally {
@@ -28,5 +30,6 @@ export const usePokemon = () => {
     error,
     pokemon,
     isLoading,
+    pokemonList,
   };
 };
