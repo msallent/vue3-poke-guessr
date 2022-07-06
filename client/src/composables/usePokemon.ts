@@ -19,6 +19,7 @@ export const usePokemon = () => {
       const randomIndex = Math.floor(Math.random() * data.length);
       pokemon.value = data[randomIndex];
       pokemonList.value = data;
+      pokemonList.value[randomIndex].chosen = true;
     } catch (err) {
       error.value = err as AxiosError;
     } finally {
