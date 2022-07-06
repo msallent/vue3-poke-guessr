@@ -1,26 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import axios from 'axios';
-import type { Pokemon } from '@/types/Pokemon';
 import CardButton from '@/components/CardButton.vue';
+import { usePokemon } from '@/composables/usePokemon';
+import SkeletonButton from '@/components/SkeletonButton.vue';
 
-const props = defineProps<{
-  pokemon: Pokemon;
-  options: Array<Pokemon>;
-}>();
+const { pokemonList, pokemon } = usePokemon();
 
 const sprite = ref('');
-axios.get(props.pokemon.image).then(({ data }) => {
-  sprite.value = data;
-});
 
 const onClick = (pokemonId: number) => {
-  if (pokemonId === props.pokemon.id) {
+  if (pokemonId === pokemon.value?.id) {
     console.log('CORRECT!');
   } else {
     console.log('Try again.');
   }
 };
+
+watch(pokemon, () => {
+  if (pokemon.value) {
+    axios.get(pokemon.value.image).then(({ data }) => {
+      sprite.value = data;
+    });
+  }
+});
 </script>
 
 <template>
@@ -32,9 +35,14 @@ const onClick = (pokemonId: number) => {
       class="flex justify-center items-center text-black h-80 [&>svg]:w-full [&>svg]:h-full"
       aria-hidden="true"
     ></div>
-    <ul class="space-y-4">
-      <li v-for="pokemon in options" :key="pokemon.id">
+    <ul v-if="pokemonList.length > 0 && sprite !== ''" class="space-y-4">
+      <li v-for="pokemon in pokemonList" :key="pokemon.id">
         <CardButton @click="() => onClick(pokemon.id)">{{ pokemon.name }}</CardButton>
+      </li>
+    </ul>
+    <ul v-else class="space-y-4">
+      <li v-for="index in Array(4)" :key="index">
+        <SkeletonButton />
       </li>
     </ul>
   </div>
