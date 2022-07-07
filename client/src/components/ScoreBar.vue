@@ -8,7 +8,7 @@ defineProps<{
 <template>
   <div class="flex">
     <span class="font-bold text-green-600">{{ correctChoices }}</span>
-    <div class="w-full flex mx-4 overflow-hidden -skew-x-[25deg]">
+    <div class="w-full flex mx-4 overflow-hidden -skew-x-[25deg] gap-2.5">
       <div
         class="bg-green-600 skew-x-[45deg] transition-all"
         :style="{ width: `${(correctChoices * 100) / (correctChoices + incorrectChoices)}%` }"
