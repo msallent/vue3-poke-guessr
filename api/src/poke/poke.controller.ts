@@ -2,7 +2,7 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import { PokeService } from './poke.service';
 import { MAX_CARD_OPTIONS, MAX_ID_SECOND_GEN } from './constants';
-import { getRandomNumber } from '@/utils';
+import { getRandomNumber, hasDuplicates } from '@/utils';
 
 @Controller()
 export class PokeController {
@@ -21,7 +21,11 @@ export class PokeController {
     randomOffset = randomOffset < 0 ? 0 : randomOffset;
 
     const pokemonList = await firstValueFrom(this.findAll({ limit, offset: randomOffset }));
-    const randomPokemonIndices = [...Array(MAX_CARD_OPTIONS)].map(() => getRandomNumber(limit));
+    let randomPokemonIndices = [...Array(MAX_CARD_OPTIONS)].map(() => getRandomNumber(limit));
+
+    while (hasDuplicates(randomPokemonIndices)) {
+      randomPokemonIndices = randomPokemonIndices.map(() => getRandomNumber(limit));
+    }
 
     return randomPokemonIndices.map((index) => {
       const pokemon = pokemonList.results[index];
