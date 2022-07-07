@@ -1,12 +1,24 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import PokemonCard from '@/components/PokemonCard.vue';
+import ScoreBar from '@/components/ScoreBar.vue';
+
+const correctChoices = ref(0);
+const incorrectChoices = ref(0);
+
+const onSelectChoice = (isCorrectChoice: boolean) => {
+  if (isCorrectChoice) {
+    correctChoices.value++;
+  } else {
+    incorrectChoices.value++;
+  }
+};
 </script>
 
 <template>
-  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-    <h1 class="text-4xl mb-4 text-center text-[#ffcb05] [text-shadow:1px_2px_#2a75bb]">
-      PokeGuessr
-    </h1>
-    <PokemonCard />
+  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 space-y-4">
+    <h1 class="text-4xl text-center text-[#ffcb05] [text-shadow:1px_2px_#2a75bb]">PokeGuessr</h1>
+    <PokemonCard @select-choice="onSelectChoice" />
+    <ScoreBar :correct-choices="correctChoices" :incorrect-choices="incorrectChoices" />
   </div>
 </template>

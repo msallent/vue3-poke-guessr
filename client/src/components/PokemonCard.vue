@@ -5,13 +5,17 @@ import CardButton from '@/components/CardButton.vue';
 import { usePokemon } from '@/composables/usePokemon';
 import SkeletonButton from '@/components/SkeletonButton.vue';
 
-const { pokemonList, pokemon } = usePokemon();
+const emit = defineEmits(['selectChoice']);
 
 const sprite = ref('');
 const showPokemon = ref(false);
 const selectedAnswer = ref('');
 
+const { pokemonList, pokemon } = usePokemon();
+
 const onClick = (pokemonId: string) => {
+  emit('selectChoice', pokemonId === pokemon.value?.id);
+
   selectedAnswer.value = pokemonId;
   showPokemon.value = true;
 };
