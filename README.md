@@ -1,2 +1,17 @@
 # vue3-poke-guessr
-Full stack app built with Vue 3 and NestJS
+
+## Installation
+```bash
+$ npm install
+```
+
+## Running the application
+Frontend:
+```
+$ npm run dev -w client
+```
+
+Backend:
+```
+$ npm run start -w api
+```
