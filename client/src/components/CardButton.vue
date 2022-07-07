@@ -2,7 +2,7 @@
 defineProps<{
   id: string;
   isChosen?: boolean;
-  selectedAnswer?: string;
+  selectedAnswer: string;
 }>();
 </script>
 
