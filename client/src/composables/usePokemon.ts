@@ -10,7 +10,7 @@ export const usePokemon = () => {
   const pokemon: Ref<Pokemon | null> = ref(null);
   const isLoading = ref(false);
 
-  (async () => {
+  const fetchData = async () => {
     isLoading.value = true;
 
     try {
@@ -25,12 +25,15 @@ export const usePokemon = () => {
     } finally {
       isLoading.value = false;
     }
-  })();
+  };
+
+  fetchData();
 
   return {
     error,
     pokemon,
     isLoading,
     pokemonList,
+    fetchData,
   };
 };

@@ -11,13 +11,28 @@ const sprite = ref('');
 const showPokemon = ref(false);
 const selectedAnswer = ref('');
 
-const { pokemonList, pokemon } = usePokemon();
+const { pokemonList, pokemon, fetchData } = usePokemon();
+
+const fetchNewPokemon = () => {
+  selectedAnswer.value = '';
+  showPokemon.value = false;
+  sprite.value = '';
+
+  pokemonList.value = [];
+  pokemon.value = null;
+
+  fetchData();
+};
 
 const onClick = (pokemonId: string) => {
   emit('selectChoice', pokemonId === pokemon.value?.id);
 
   selectedAnswer.value = pokemonId;
   showPokemon.value = true;
+
+  setTimeout(() => {
+    fetchNewPokemon();
+  }, 2500);
 };
 
 watch(pokemon, () => {
