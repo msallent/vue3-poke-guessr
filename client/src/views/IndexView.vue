@@ -16,7 +16,7 @@ const onSelectChoice = (isCorrectChoice: boolean) => {
 </script>
 
 <template>
-  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 space-y-4">
+  <div class="min-h-screen flex flex-col justify-center items-center space-y-4 py-4">
     <h1 class="text-4xl text-center text-[#ffcb05] [text-shadow:1px_2px_#2a75bb]">PokeGuessr</h1>
     <PokemonCard @select-choice="onSelectChoice" />
     <ScoreBar :correct-choices="correctChoices" :incorrect-choices="incorrectChoices" />

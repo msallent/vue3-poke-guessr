@@ -46,7 +46,7 @@ watch(pokemon, () => {
 
 <template>
   <div
-    class="inline-flex flex-col rounded-2xl shadow-md p-6 w-11/12 space-y-6 bg-gradient-to-br from-slate-400 to-slate-700 md:w-96"
+    class="flex flex-col rounded-2xl shadow-md p-6 w-[370px] space-y-6 bg-gradient-to-br from-slate-400 to-slate-700 md:w-96"
   >
     <div
       v-html="sprite"

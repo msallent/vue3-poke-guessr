@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 #app {
-  @apply min-h-screen bg-zinc-900 text-white;
+  @apply bg-zinc-900 text-white;
 }

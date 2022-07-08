@@ -6,7 +6,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex w-[370px] md:w-96">
     <span class="font-bold text-green-600">{{ correctChoices }}</span>
     <div class="w-full flex mx-4 overflow-hidden -skew-x-[25deg] gap-2.5">
       <div
