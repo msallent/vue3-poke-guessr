@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { ref, type Ref } from 'vue';
 import type { Pokemon } from '@/types/Pokemon';
 
-const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
+const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
 
 export const usePokemon = () => {
   const error: Ref<AxiosError | null> = ref(null);
